@@ -10,11 +10,11 @@
 -- drop table matches;
 
 create table if not exists players ( id SERIAL PRIMARY KEY, 
-                       name VARCHAR(50) NOT NULL);
+                                     name VARCHAR(50) NOT NULL);
 
 create table if not exists matches ( id SERIAL PRIMARY KEY,
-                       winner INTEGER REFERENCES players,
-                       loser INTEGER REFERENCES players);
+                                     winner INTEGER REFERENCES players,
+                                     loser INTEGER REFERENCES players);
 
 create view winners as
     select players.id, players.name, count(matches.id) as wins
