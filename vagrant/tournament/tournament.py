@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# 
-# tournament.py -- implementation of a Swiss-system tournament
-#
+"""
+tournament.py -- implementation of a Swiss-system tournament
+"""
 
 import psycopg2
 
@@ -13,14 +13,28 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
-
+    db = connect()
+    c = db.cursor()
+    c.execute("delete from matches;")
+    db.commit()
+    c.close()
 
 def deletePlayers():
     """Remove all the player records from the database."""
-
+    db = connect()
+    c = db.cursor()
+    c.execute("delete from players;")
+    db.commit()
+    c.close()
 
 def countPlayers():
     """Returns the number of players currently registered."""
+    db = connect()
+    c = db.cursor()
+    c.execute("select count(*) from players;")
+    result = c.fetchall()[0][0]
+    c.close()
+    return result
 
 
 def registerPlayer(name):
@@ -32,7 +46,11 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-
+    db = connect()
+    c = db.cursor()
+    c.execute("insert into players (name) values (%s);", (name,))
+    db.commit()
+    c.close()
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -47,6 +65,12 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    db = connect()
+    c = db.cursor()
+    c.execute("select * from standings")
+    results = c.fetchall()
+    c.close()
+    return results
 
 
 def reportMatch(winner, loser):
@@ -56,16 +80,21 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
- 
- 
+    db = connect()
+    c = db.cursor()
+    c.execute("insert into matches (winner, loser) values (%s, %s);", (winner, loser))
+    db.commit()
+    c.close()
+
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
-  
+
     Assuming that there are an even number of players registered, each player
     appears exactly once in the pairings.  Each player is paired with another
     player with an equal or nearly-equal win record, that is, a player adjacent
     to him or her in the standings.
-  
+
     Returns:
       A list of tuples, each of which contains (id1, name1, id2, name2)
         id1: the first player's unique id
@@ -73,5 +102,12 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
-
+    players = playerStandings()
+    count = len(players)
+    pairings = [(
+        players[index][0],
+        players[index][1],
+        players[index + 1][0],
+        players[index + 1][1]
+    ) for index in range(0, count, 2)]
+    return pairings
