@@ -4,7 +4,7 @@ fullstack-nanodegree-vm
 The game tournament will use the Swiss system for pairing up players in each round: players are not eliminated, and each player should be paired with another player with the same number of wins, or as close as possible.
 
 # Setup
-For running up this project you will need to have installed[virtual box](https://www.virtualbox.org/) and [vagrant](https://www.vagrantup.com/).
+For running up this project you will need to have installed [virtual box](https://www.virtualbox.org/) and [vagrant](https://www.vagrantup.com/).
 
 First, inside the `/vagrant` folder setup a machine by running `vagrant up`. This will use the parameters specified in the `Vagrantfile`.
 Here with the `psql` tool a database named `tournament` will be created, and the file `tournament/tourament.sql` where the schema is defined is run, which will create tables for players and matches, and some intermediate views to obtain the players standings.
