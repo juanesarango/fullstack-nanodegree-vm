@@ -1,7 +1,7 @@
-fullstack-nanodegree-vm
+Swiss-System Tournament 
 =============
 
-The game tournament will use the Swiss system for pairing up players in each round: players are not eliminated, and each player should be paired with another player with the same number of wins, or as close as possible.
+The game tournament will use the Swiss system for pairing up players in each round: players are not eliminated, and each player should be paired with another player with the same number of wins, or as close as possible. This project is done for fullstack-nanodegree of udacity.
 
 # Setup
 For running up this project you will need to have installed [virtual box](https://www.virtualbox.org/) and [vagrant](https://www.vagrantup.com/).
