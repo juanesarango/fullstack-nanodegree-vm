@@ -9,6 +9,10 @@
 -- drop table players;
 -- drop table matches;
 
+drop database if exists tournament;
+create database tournament;
+\c tournament
+
 create table if not exists players ( id SERIAL PRIMARY KEY, 
                                      name VARCHAR(50) NOT NULL);
 

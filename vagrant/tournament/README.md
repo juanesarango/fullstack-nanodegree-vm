@@ -7,7 +7,7 @@ The game tournament will use the Swiss system for pairing up players in each rou
 For running up this project you will need to have installed [virtual box](https://www.virtualbox.org/) and [vagrant](https://www.vagrantup.com/).
 
 First, inside the `/vagrant` folder setup a machine by running `vagrant up`. This will use the parameters specified in the `Vagrantfile`.
-Here with the `psql` tool a database named `tournament` will be created, and the file `tournament/tourament.sql` where the schema is defined is run, which will create tables for players and matches, and some intermediate views to obtain the players standings.
+Here with the `psql -f tournament/tourament.sql` tool a database named `tournament` will be created, using the file `tournament/tourament.sql` where the schema is defined is run, which will create tables for players and matches, and some intermediate views to obtain the players standings.
 
 The template file `tournament.py` is where are located the functions of the module. In this file you’ll see stubs of several functions. Each function has a docstring that says what it should do.
 
